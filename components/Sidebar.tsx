@@ -1,6 +1,4 @@
 "use client";
-
-import { useState } from "react";
 import {
   HiOutlineHome,
   HiOutlineCurrencyDollar,
@@ -12,10 +10,15 @@ import {
 } from "react-icons/hi2";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const navItems = [
-  { label: "Dashboard", icon: HiOutlineHome, href: "/dashboard" },
-  { label: "Transactions", icon: HiOutlineCurrencyDollar, href: "/transactions" },
+  { label: "Dashboard", icon: HiOutlineHome, href: "/" },
+  {
+    label: "Transactions",
+    icon: HiOutlineCurrencyDollar,
+    href: "/transactions",
+  },
   { label: "Accounts", icon: HiOutlineCreditCard, href: "/accounts" },
   { label: "Clients", icon: HiOutlineUsers, href: "/clients" },
   { label: "Employees", icon: HiOutlineUserGroup, href: "/employees" },
@@ -24,39 +27,98 @@ const navItems = [
   { label: "Settings", icon: HiOutlineCog, href: "/settings" },
 ];
 
-export default function Sidebar() {
-  const [open, setOpen] = useState(true);
+interface SidebarProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+export default function Sidebar({ open, setOpen }: SidebarProps) {
+  const [selected, setSelected] = useState("Dashboard");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setOpen(false);
+      } else {
+        setOpen(true);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [setOpen]);
 
   return (
-    <aside
-      className={`h-screen border-r bg-dark-blue transition-all duration-300
-      ${open ? "w-64" : "w-16"}`}
-    >
-      {/* Logo */}
-      <div className="flex items-center justify-between px-4 py-6">
-        <div className="flex items-center gap-2">
-          <HiOutlineCurrencyDollar size={28} />
-          {open && <span className="text-xl font-semibold">Maglo</span>}
-        </div>
-        <button onClick={() => setOpen(!open)}>
-          {open ? <FiChevronLeft /> : <FiChevronRight />}
-        </button>
-      </div>
+    <>
+      {/* Mobile Overlay */}
+      {open && (
+        <div
+          className="md:hidden fixed inset-0 bg-dark-blue/50 z-40"
+          onClick={() => setOpen(false)}
+        />
+      )}
 
-      {/* Nav */}
-      <nav className={`space-y-4 ${open ? "px-4" : "px-2"}`}>
-        {navItems.map(({ label, icon: Icon, href }) => (
-          <Link
-            key={label}
-            href={href}
-            className="flex items-center gap-3 px-2 py-2 rounded-md
-              hover:bg-primary-500 hover:text-black transition font-semibold"
+      <aside
+        className={`
+            fixed md:relative z-50 h-full md:h-auto
+            border-r border-gray-600 bg-dark-blue transition-all duration-300 text flex flex-col justify-between
+            ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+            ${open ? "w-64" : "md:w-16"}
+            md:translate-x-0
+          `}
+      >
+        <div>
+          {/* Nav */}
+          <p className={`space-y-3 ${open ? "p-4" : "px-2 py-4"}`}>
+            {navItems.map(({ label, icon: Icon, href }) => (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => {
+                  setSelected(label);
+                  if (window.innerWidth < 768) setOpen(false);
+                }}
+                className={`flex items-center gap-3 p-3 rounded-md
+                  hover:bg-primary-300 hover:text-black transition font-semibold
+                  ${selected === label ? "bg-primary-500 text-black" : ""}
+                  whitespace-nowrap overflow-hidden
+                  `}
+              >
+                <Icon className="rounded-full min-w-[25px]" size={25} />
+                <span
+                  className={`transition-opacity duration-300 ${
+                    open
+                      ? "opacity-100"
+                      : "opacity-0 md:opacity-0 md:hidden group-hover:block"
+                  }`}
+                >
+                  {label}
+                </span>
+              </Link>
+            ))}
+          </p>
+        </div>
+
+        <div
+          className="p-4 flex items-center gap-2 border-t border-gray-600 cursor-pointer"
+          onClick={() => setOpen(!open)}
+        >
+          <div>
+            {open ? (
+              <FiChevronLeft className="m-1" size={20} />
+            ) : (
+              <FiChevronRight className="m-1" size={20} />
+            )}
+          </div>
+          <p
+            title="Collapse"
+            className="bg-transparent w-fit text hover:cursor-pointer hover:bg-none whitespace-nowrap overflow-hidden"
           >
-            <Icon size={22} />
-            {open && <span>{label}</span>}
-          </Link>
-        ))}
-      </nav>
-    </aside>
+            {open && "Collapse"}
+          </p>
+        </div>
+      </aside>
+    </>
   );
 }

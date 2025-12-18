@@ -3,12 +3,12 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Page() {
+export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
     const isAuthenticated = !!localStorage.getItem("auth");
-    router.replace(isAuthenticated ? "/dashboard" : "/sign-in");
+    router.replace(isAuthenticated ? "/" : "/sign-in");
   }, [router]);
 
   return null;

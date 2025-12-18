@@ -16,23 +16,26 @@ export default function SignIn() {
 
   useEffect(() => {
     const isAuthenticated = !!localStorage.getItem("auth");
-    router.replace(isAuthenticated ? "/dashboard" : "/sign-in");
+    router.replace(isAuthenticated ? "/" : "/sign-in");
   }, [router]);
 
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
 
-    const {email,password} = formData || {};
+    const { email, password } = formData || {};
 
     if (!email || !password) return;
 
-    localStorage.setItem("auth", JSON.stringify({
-      email,
-      password,
-    }));
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        email,
+        password,
+      })
+    );
 
-    router.push("/dashboard");
+    router.push("/");
   };
 
   return (
@@ -67,34 +70,34 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               label="Email address"
               placeholder="Enter the email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               required
             />
 
             {/* Password */}
             <div className="space-y-3">
-           
-
-            <div className="mt-2">
-             <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Enter the password"
-                label="Password"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                required
-              />
-                </div>
+              <div className="mt-2">
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Enter the password"
+                  label="Password"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
+                  required
+                />
+              </div>
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-2">
-                <Input id="remember" name="remember" type="checkbox" />
-                <span className="block text-sm font-medium text">
-                  Remember me
-                </span>
+                  <Input id="remember" name="remember" type="checkbox" />
+                  <span className="block text-sm font-medium text">
+                    Remember me
+                  </span>
                 </div>
                 <Link
                   href="/forgot-password"
@@ -106,10 +109,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             </div>
 
             {/* Button */}
-            <Button
-              buttonType="submit"
-              title="Sign In"
-            />
+            <Button buttonType="submit" title="Sign In" />
           </form>
         </div>
       </div>
@@ -124,7 +124,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         />
       </div>
 
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
     </div>
   );
 }

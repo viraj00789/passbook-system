@@ -1,13 +1,29 @@
-import AuthGuard from "@/components/AuthGuard";
+"use client";
 import { ThemesProvider } from "@/Providers/ThemesProvider";
-import "../globals.css"
+import AuthGuard from "@/components/AuthGuard";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
+import { useState } from "react";
+import "../globals.css";
 
 export default function ProtectedLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <ThemesProvider><AuthGuard>{children}</AuthGuard></ThemesProvider>
-    )
+  const [open, setOpen] = useState(true);
+
+  return (
+    <ThemesProvider>
+      <AuthGuard>
+        <div className="w-full h-screen flex flex-col  bg-dark-blue border-b border-gray-600">
+          <Navbar open={open} setOpen={setOpen} />
+          <div className="flex grow">
+            <Sidebar open={open} setOpen={setOpen} />
+            <div className="grow">{children}</div>
+          </div>
+        </div>
+      </AuthGuard>
+    </ThemesProvider>
+  );
 }

@@ -51,3 +51,7 @@ body {
 .text {
   @apply text-black dark:text-white;
 }
+
+.custom-border-gray {
+  @apply border border-gray-600 rounded-md;
+}
