@@ -10,7 +10,8 @@ import {
 } from "react-icons/hi2";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "Dashboard", icon: HiOutlineHome, href: "/" },
@@ -32,7 +33,7 @@ interface SidebarProps {
   setOpen: (open: boolean) => void;
 }
 export default function Sidebar({ open, setOpen }: SidebarProps) {
-  const [selected, setSelected] = useState("Dashboard");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,33 +71,35 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
       >
         <div>
           {/* Nav */}
-          <p className={`space-y-3 ${open ? "p-4" : "px-2 py-4"}`}>
-            {navItems.map(({ label, icon: Icon, href }) => (
-              <Link
-                key={label}
-                href={href}
-                onClick={() => {
-                  setSelected(label);
-                  if (window.innerWidth < 768) setOpen(false);
-                }}
-                className={`flex items-center gap-3 p-3 rounded-md
+          <p className={`space-y-3 ${open ? "p-4" : "px-1.5 py-4"}`}>
+            {navItems.map(({ label, icon: Icon, href }) => {
+              const isActive = pathname === href;
+              return (
+                <Link
+                  key={label}
+                  href={href}
+                  onClick={() => {
+                    if (window.innerWidth < 768) setOpen(false);
+                  }}
+                  className={`flex items-center gap-3 p-3 rounded-md
                   hover:bg-primary-300 hover:text-black transition font-semibold
-                  ${selected === label ? "bg-primary-500 text-black" : ""}
+                  ${isActive ? "bg-primary-500 text-black" : ""}
                   whitespace-nowrap overflow-hidden
                   `}
-              >
-                <Icon className="rounded-full min-w-[25px]" size={25} />
-                <span
-                  className={`transition-opacity duration-300 ${
-                    open
-                      ? "opacity-100"
-                      : "opacity-0 md:opacity-0 md:hidden group-hover:block"
-                  }`}
                 >
-                  {label}
-                </span>
-              </Link>
-            ))}
+                  <Icon className="rounded-full min-w-[25px]" size={25} />
+                  <span
+                    className={`transition-opacity duration-300 ${
+                      open
+                        ? "opacity-100"
+                        : "opacity-0 md:opacity-0 md:hidden group-hover:block"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                </Link>
+              );
+            })}
           </p>
         </div>
 
