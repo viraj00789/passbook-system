@@ -62,8 +62,8 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
 
       <aside
         className={`
-            fixed md:relative z-50 h-full md:h-auto
-            border-r border-gray-600 bg-dark-blue transition-all duration-300 text flex flex-col justify-between
+            fixed md:relative z-50 h-full md:h-auto bg-white dark:bg-dark-blue
+            border-r border-gray-600 dark:border-gray-600 transition-all duration-300 text flex flex-col justify-between
             ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
             ${open ? "w-64" : "md:w-16"}
             md:translate-x-0
