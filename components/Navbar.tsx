@@ -17,7 +17,7 @@ export default function Navbar({ open, setOpen }: NavbarProps) {
   const { email } = getItemFromLocalStorage("auth") || {};
 
   return (
-    <nav className="w-full text h-20 p-4 flex items-center justify-between border-b border-gray-600 bg-white dark:bg-dark-blue">
+    <nav className="w-full text h-20 p-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-dark-blue">
       <div className="flex items-center gap-4">
         <div
           className="md:hidden cursor-pointer"
@@ -51,12 +51,12 @@ export default function Navbar({ open, setOpen }: NavbarProps) {
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="custom-border-gray px-2 py-1 rounded-lg items-center hidden md:flex">
+        <div className="px-2 py-1 rounded-lg items-center hidden md:flex border border-gray-200 dark:border-gray-600">
           <div className="w-2 h-2 rounded-full bg-green-500" />
           <MdOutlineAttachMoney size={25} />
           <p>50,000</p>
         </div>
-        <GoBell className="custom-border-gray p-1" size={32} />
+        <GoBell className="border rounded-md p-1 border-gray-200 dark:border-gray-600" size={33} />
         <ThemeToggle />
 
         <div className="w-8 h-8 min-w-8 min-h-8 rounded-lg flex items-center justify-center overflow-hidden">

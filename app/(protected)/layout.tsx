@@ -16,7 +16,7 @@ export default function ProtectedLayout({
   return (
     <ThemesProvider>
       <AuthGuard>
-        <div className="w-full h-screen flex flex-col  bg-white dark:bg-dark-blue border-b border-gray-600">
+        <div className="w-full h-screen flex flex-col bg-gray-100 dark:bg-dark-blue border-b border-gray-200 dark:border-gray-600">
           <Navbar open={open} setOpen={setOpen} />
           <div className="flex grow">
             <Sidebar open={open} setOpen={setOpen} />

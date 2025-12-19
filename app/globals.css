@@ -18,6 +18,7 @@
   --primary-800: #567223;
   --primary-900: #2f4515;
   --dark-blue: #1b212d;
+  --gray-1: #929EAE;
 }
 
 .dark {
@@ -42,6 +43,7 @@
   --color-primary-800: var(--primary-800);
   --color-primary-900: var(--primary-900);
   --color-dark-blue: var(--dark-blue);
+  --color-gray-1: var(--gray-1);
 }
 
 body {

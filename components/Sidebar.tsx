@@ -63,7 +63,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
       <aside
         className={`
             fixed md:relative z-50 h-full md:h-auto bg-white dark:bg-dark-blue
-            border-r border-gray-600 dark:border-gray-600 transition-all duration-300 text flex flex-col justify-between
+            border-r border-gray-200 dark:border-gray-600  transition-all duration-300 text flex flex-col justify-between
             ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
             ${open ? "w-64" : "md:w-16"}
             md:translate-x-0
@@ -89,11 +89,10 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                 >
                   <Icon className="rounded-full min-w-[25px]" size={25} />
                   <span
-                    className={`transition-opacity duration-300 ${
-                      open
+                    className={`transition-opacity duration-300 ${open
                         ? "opacity-100"
                         : "opacity-0 md:opacity-0 md:hidden group-hover:block"
-                    }`}
+                      }`}
                   >
                     {label}
                   </span>
@@ -104,7 +103,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
         </div>
 
         <div
-          className="p-4 flex items-center gap-2 border-t border-gray-600 cursor-pointer"
+          className="p-4 flex items-center gap-2 border-t border-gray-200 dark:border-gray-600 cursor-pointer"
           onClick={() => setOpen(!open)}
         >
           <div>
