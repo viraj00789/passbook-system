@@ -29,11 +29,11 @@ export default function AreaGraph() {
     );
 
     return (
-        <div className="w-full max-w-[65%] space-y-4 rounded-3xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 p-4">
+        <div className="w-full max-w-[65%] space-y-4 rounded-3xl border border-gray-300 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 p-4">
             {/* Header */}
             <div className="flex justify-between items-center">
 
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">
                     Cash Flow
                 </h2>
 
