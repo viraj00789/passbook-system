@@ -31,7 +31,7 @@ export default function CardDataStates({
     const { theme } = useTheme();
 
     return (
-        <div className="my-4 p-4 space-y-4 rounded-4xl border border-gray-300 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 overflow-hidden">
+        <div className="my-0 lg:my-4 p-4 space-y-4 rounded-2xl lg:rounded-4xl border border-gray-300 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 overflow-hidden">
             {/* Header */}
             <div className="flex justify-between">
                 <div
@@ -75,6 +75,7 @@ export default function CardDataStates({
                 series={[{ data: chartData }]}
                 type="bar"
                 height={48}
+                width={"100%"}
             />}
         </div>
     );

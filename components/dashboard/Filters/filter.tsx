@@ -57,7 +57,7 @@ export function Filter({ filter, onFilterChange }: FilterProps) {
           <button
             key={type}
             onClick={() => handleTypeChange(type)}
-            className={`px-4 py-2 rounded-md text-sm font-bold capitalize transition-colors cursor-pointer ${filter.type === type
+            className={`px-2 lg:px-4 py-2 rounded-md text-sm font-bold capitalize transition-colors cursor-pointer ${filter.type === type
               ? "bg-white dark:bg-dark-blue shadow-sm text-primary-600"
               : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300"
               }`}
