@@ -95,7 +95,7 @@ export default function DataTable<T extends object>({
       <div className="overflow-x-auto w-full max-w-[calc(100vw-284px)] border rounded-2xl border-gray-200 dark:border-gray-800">
         <table className="min-w-max w-full text-sm rounded-2xl border-gray-200 dark:border-gray-800">
           {/* Desktop Header */}
-          <thead className="bg-primary-500">
+          <thead className="bg-primary-500 dark:bg-gray-800 border border-gray-200 dark:border-gray-800">
             <tr>
               {columns.map((col) => (
                 <th
