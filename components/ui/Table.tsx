@@ -1,9 +1,6 @@
+import { useSidebar } from "@/Providers/SideBarContext";
 import { useMemo, useState, ReactNode } from "react";
 import { BiDownArrow, BiUpArrow } from "react-icons/bi";
-
-/* =========================
-   TYPES
-========================= */
 
 export type SortDirection = "asc" | "desc";
 
@@ -20,10 +17,6 @@ interface DataTableProps<T extends object> {
   searchable?: boolean;
 }
 
-/* =========================
-   DATA TABLE
-========================= */
-
 export default function DataTable<T extends object>({
   columns,
   data,
@@ -32,6 +25,7 @@ export default function DataTable<T extends object>({
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<keyof T | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+  const { open } = useSidebar();
 
   /* 🔍 Search */
   const filteredData = useMemo(() => {
@@ -92,7 +86,11 @@ export default function DataTable<T extends object>({
       )}
 
       {/* 📊 Table Wrapper (THIS ENABLES HORIZONTAL SCROLL) */}
-      <div className="overflow-x-auto w-full max-w-[calc(100vw-284px)] border rounded-2xl border-gray-200 dark:border-gray-800">
+      <div
+        className={`overflow-x-auto w-full ${
+          open ? "max-w-[calc(100vw-284px)]" : "max-w-[calc(100vw-38px)]"
+        } border rounded-2xl border-gray-200 dark:border-gray-800`}
+      >
         <table className="min-w-max w-full text-sm rounded-2xl border-gray-200 dark:border-gray-800">
           {/* Desktop Header */}
           <thead className="bg-primary-500 dark:bg-gray-800 border border-gray-200 dark:border-gray-800">

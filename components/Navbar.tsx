@@ -7,14 +7,11 @@ import { getItemFromLocalStorage } from "../utils/helper";
 import { GoBell } from "react-icons/go";
 import ThemeToggle from "@/Providers/ThemeToggle";
 import { MdOutlineAttachMoney } from "react-icons/md";
+import { useSidebar } from "@/Providers/SideBarContext";
 
-interface NavbarProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-}
-
-export default function Navbar({ open, setOpen }: NavbarProps) {
+export default function Navbar() {
   const { email } = getItemFromLocalStorage("auth") || {};
+  const { open, setOpen } = useSidebar();
 
   return (
     <nav className="w-full text h-20 p-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-dark-blue">
@@ -56,7 +53,10 @@ export default function Navbar({ open, setOpen }: NavbarProps) {
           <MdOutlineAttachMoney size={25} />
           <p>50,000</p>
         </div>
-        <GoBell className="border rounded-md p-1 border-gray-200 dark:border-gray-600" size={33} />
+        <GoBell
+          className="border rounded-md p-1 border-gray-200 dark:border-gray-600"
+          size={33}
+        />
         <ThemeToggle />
 
         <div className="w-8 h-8 min-w-8 min-h-8 rounded-lg flex items-center justify-center overflow-hidden">
