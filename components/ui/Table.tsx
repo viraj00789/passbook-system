@@ -12,12 +12,14 @@ export interface Column<T> {
 }
 
 interface DataTableProps<T extends object> {
+  title: string;
   columns: Column<T>[];
   data: T[];
   searchable?: boolean;
 }
 
 export default function DataTable<T extends object>({
+  title,
   columns,
   data,
   searchable = true,
@@ -27,7 +29,6 @@ export default function DataTable<T extends object>({
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const { open } = useSidebar();
 
-  /* 🔍 Search */
   const filteredData = useMemo(() => {
     if (!search) return data;
 
@@ -68,32 +69,36 @@ export default function DataTable<T extends object>({
   };
 
   return (
-    <div className="w-full">
-      {/* 🔍 Search */}
-      {searchable && (
-        <div className="mb-4">
+    <div className="w-full border rounded-2xl border-gray-200 dark:border-gray-700">
+
+      <div className="flex justify-between items-center rounded-t-2xl p-4 bg-white dark:bg-gray-800">
+        <div className="text-xl font-bold ">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            {title}
+          </h1>
+        </div>
+        {searchable && (
           <input
             type="text"
             placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full md:w-1/3 px-4 py-2 rounded-md
+            className="w-full max-w-62.5 md:w-1/3 px-4 py-2 rounded-xl
               bg-background text-foreground border
               border-gray-300 dark:border-gray-700
-              focus:outline-none focus:ring-2 focus:ring-primary"
+              focus:outline-none focus:ring-2 focus:ring-primary "
           />
-        </div>
-      )}
+        )}
+      </div>
 
       {/* 📊 Table Wrapper (THIS ENABLES HORIZONTAL SCROLL) */}
       <div
-        className={`overflow-x-auto w-full ${
-          open ? "max-w-[calc(100vw-284px)]" : "max-w-[calc(100vw-38px)]"
-        } border rounded-2xl border-gray-200 dark:border-gray-800`}
+        className={`overflow-x-auto w-full ${open ? "max-w-[calc(100vw-284px)]" : "max-w-[calc(100vw-111px)]"
+          }`}
       >
         <table className="min-w-max w-full text-sm rounded-2xl border-gray-200 dark:border-gray-800">
           {/* Desktop Header */}
-          <thead className="bg-primary-500 dark:bg-gray-800 border border-gray-200 dark:border-gray-800">
+          <thead className="">
             <tr>
               {columns.map((col) => (
                 <th
@@ -103,7 +108,7 @@ export default function DataTable<T extends object>({
                       ? handleSort(col.key as keyof T)
                       : undefined
                   }
-                  className={`p-3 lg:p-5 text-left font-semibold  dark:text-gray-500
+                  className={`p-3 lg:p-4 text-left font-bold  dark:text-gray-500 text
                     ${col.sortable ? "cursor-pointer select-none" : ""}
                   `}
                 >
@@ -125,15 +130,14 @@ export default function DataTable<T extends object>({
           </thead>
 
           {/* Body */}
-          <tbody className="">
+          <tbody className="bg-white dark:bg-gray-900">
             {sortedData.length ? (
               sortedData.map((row, idx) => (
                 <tr
                   key={idx}
                   className="mb-4 md:mb-0
                     rounded-lg md:rounded-none
-                    border border-gray-200 dark:border-gray-700
-                    hover:bg-primary-50/40 dark:hover:bg-gray-800
+                    hover:bg-gray-200 dark:hover:bg-gray-800
                     transition
                   "
                 >
@@ -150,8 +154,8 @@ export default function DataTable<T extends object>({
                       {col.render
                         ? col.render(row)
                         : col.key !== "actions"
-                        ? String(row[col.key])
-                        : null}
+                          ? String(row[col.key])
+                          : null}
                     </td>
                   ))}
                 </tr>

@@ -44,9 +44,6 @@ export default function Dashboard() {
           <CardStack />
         </div>
         <div className="mt-2 lg:mt-6 space-y-0 lg:space-y-4">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Transactions
-          </h1>
           <TableUsageExample />
         </div>
       </div>

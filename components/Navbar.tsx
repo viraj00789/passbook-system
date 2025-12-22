@@ -59,7 +59,7 @@ export default function Navbar() {
         />
         <ThemeToggle />
 
-        <div className="w-8 h-8 min-w-8 min-h-8 rounded-lg flex items-center justify-center overflow-hidden">
+        <div className="w-8 h-8 min-w-8 min-h-8 rounded-lg flex items-center justify-centerw">
           {email ? (
             <div className="w-full h-full bg-primary text-black flex items-center justify-center text-2xl font-bold">
               {email?.charAt(0)?.toUpperCase() || "?"}

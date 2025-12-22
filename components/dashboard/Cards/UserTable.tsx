@@ -101,5 +101,5 @@ export default function TableUsageExample() {
     },
   ];
 
-  return <DataTable columns={columns} data={data} searchable />;
+  return <DataTable title="Recent Transaction(s)" columns={columns} data={data} searchable />;
 }
