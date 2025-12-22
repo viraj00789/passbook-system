@@ -1,4 +1,5 @@
 import DataTable, { Column } from "@/components/ui/Table";
+import { BiEdit, BiTrash } from "react-icons/bi";
 
 interface User {
   id: number;
@@ -84,18 +85,16 @@ export default function TableUsageExample() {
       label: "Actions",
       render: (row) => (
         <div className="flex gap-2">
-          <button
+          <BiEdit
             onClick={() => alert(`Edit ${row.name}`)}
-            className="text-primary"
-          >
-            Edit
-          </button>
-          <button
+            className="text-gray-500 dark:text-gray cursor-pointer"
+            size={20}
+          />
+          <BiTrash
             onClick={() => alert(`Delete ${row.name}`)}
-            className="text-red-500"
-          >
-            Delete
-          </button>
+            className="text-gray-500 dark:text-gray cursor-pointer"
+            size={20}
+          />
         </div>
       ),
     },

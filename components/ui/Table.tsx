@@ -1,6 +1,8 @@
+"use client";
+
 import { useSidebar } from "@/Providers/SideBarContext";
 import { useMemo, useState, ReactNode } from "react";
-import { BiDownArrow, BiUpArrow } from "react-icons/bi";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 export type SortDirection = "asc" | "desc";
 
@@ -29,6 +31,7 @@ export default function DataTable<T extends object>({
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const { open } = useSidebar();
 
+  /* 🔍 Search */
   const filteredData = useMemo(() => {
     if (!search) return data;
 
@@ -39,7 +42,7 @@ export default function DataTable<T extends object>({
     );
   }, [data, search]);
 
-  /* 🔃 Sorting */
+  /* 🔃 Sort */
   const sortedData = useMemo(() => {
     if (!sortKey) return filteredData;
 
@@ -69,36 +72,37 @@ export default function DataTable<T extends object>({
   };
 
   return (
-    <div className="w-full border rounded-2xl border-gray-200 dark:border-gray-700">
-
+    <div className="w-full border rounded-2xl border-gray-300 dark:border-gray-800">
+      {/* Header */}
       <div className="flex justify-between items-center rounded-t-2xl p-4 bg-white dark:bg-gray-800">
-        <div className="text-xl font-bold ">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {title}
-          </h1>
-        </div>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          {title}
+        </h1>
+
         {searchable && (
           <input
             type="text"
             placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full max-w-62.5 md:w-1/3 px-4 py-2 rounded-xl
+            className="w-full max-w-62.5 px-4 py-2 rounded-xl
               bg-background text-foreground border
               border-gray-300 dark:border-gray-700
-              focus:outline-none focus:ring-2 focus:ring-primary "
+              focus:outline-none focus:ring-2 focus:ring-primary"
           />
         )}
       </div>
 
-      {/* 📊 Table Wrapper (THIS ENABLES HORIZONTAL SCROLL) */}
+      {/* Table Wrapper */}
       <div
-        className={`overflow-x-auto w-full ${open ? "max-w-[calc(100vw-284px)]" : "max-w-[calc(100vw-111px)]"
+        className={`overflow-x-auto w-full ${open
+          ? "max-w-[calc(100vw-284px)]"
+          : "max-w-[calc(100vw-111px)]"
           }`}
       >
-        <table className="min-w-max w-full text-sm rounded-2xl border-gray-200 dark:border-gray-800">
-          {/* Desktop Header */}
-          <thead className="">
+        <table className="min-w-max w-full text-sm">
+          {/* Header */}
+          <thead>
             <tr>
               {columns.map((col) => (
                 <th
@@ -108,19 +112,33 @@ export default function DataTable<T extends object>({
                       ? handleSort(col.key as keyof T)
                       : undefined
                   }
-                  className={`p-3 lg:p-4 text-left font-bold  dark:text-gray-500 text
-                    ${col.sortable ? "cursor-pointer select-none" : ""}
-                  `}
+                  className={`p-4 text-left text-lg font-bold text-gray-700 dark:text-gray-400
+                    ${col.sortable
+                      ? "cursor-pointer select-none hover:text-primary"
+                      : ""
+                    }`}
                 >
-                  <div className="flex items-center gap-2 text-lg">
+                  <div className="flex items-center gap-2">
                     {col.label}
-                    {sortKey === col.key && (
-                      <span className="text-xs">
-                        {sortDirection === "asc" ? (
-                          <BiUpArrow className="bg-gray-100" />
-                        ) : (
-                          <BiDownArrow className="bg-gray-100" />
-                        )}
+
+                    {/* Sort Icons */}
+                    {col.sortable && col.key !== "actions" && (
+                      <span className="flex flex-col text-xs">
+                        <FaChevronUp
+                          className={`transition ${sortKey === col.key && sortDirection === "asc"
+                            ? "text-primary"
+                            : "text-gray-400"
+                            }`}
+                          size={8}
+                        />
+                        <FaChevronDown
+                          className={`transition ${sortKey === col.key && sortDirection === "desc"
+                            ? "text-primary"
+                            : "text-gray-400"
+                            }`}
+                          size={8}
+
+                        />
                       </span>
                     )}
                   </div>
@@ -130,26 +148,17 @@ export default function DataTable<T extends object>({
           </thead>
 
           {/* Body */}
-          <tbody className="bg-white dark:bg-gray-900">
+          <tbody className="bg-white dark:bg-gray-800">
             {sortedData.length ? (
               sortedData.map((row, idx) => (
                 <tr
                   key={idx}
-                  className="mb-4 md:mb-0
-                    rounded-lg md:rounded-none
-                    hover:bg-gray-200 dark:hover:bg-gray-800
-                    transition
-                  "
+                  className="hover:bg-gray-100 dark:hover:bg-gray-900 transition"
                 >
                   {columns.map((col) => (
                     <td
                       key={col.label}
-                      data-label={col.label}
-                      className="
-                        p-4.5 text-foreground
-                        before:text-gray-600 dark:before:text-gray-400
-                        before:mb-1
-                      "
+                      className="p-4 text-gray-700 dark:text-gray-300"
                     >
                       {col.render
                         ? col.render(row)
