@@ -1,51 +1,79 @@
 export type CreditCard = {
-  id: string;
-  brand: "visa" | "mastercard" | "amex";
+  id: string; brand: "visa" | "mastercard" | "amex";
   number: string;
   holder: string;
   expiry: string;
   bgColor: string;
+  ifscode?: string;
+  accountName?: string;
+  accountNumber?: string;
+  sortCode?: string;
+  brandImage?: string;
 };
 
 export const CARDS: CreditCard[] = [
   {
-    id: "1",
+    id: "101",
     brand: "visa",
-    number: "4242 4242 4242 4242",
-    holder: "JOHN DOE",
-    expiry: "12/27",
-    bgColor: "#266678",
+    number: "**** **** 1111 1111",
+    holder: "ROBERT MARTIN",
+    expiry: "09/27",
+    bgColor: "linear-gradient(15deg, #0f2027, #203a43, #2c5364)", // Deep Blue
+    ifscode: "SBIN0001234",
+    accountName: "ROBERT MARTIN",
+    accountNumber: "12345678901",
+    brandImage: "/mastercard.svg",
   },
   {
-    id: "2",
+    id: "102",
     brand: "mastercard",
-    number: "5555 5555 5555 4444",
-    holder: "JANE SMITH",
-    expiry: "08/26",
-    bgColor: "#cb7c7a",
+    number: "**** **** 0000 0004",
+    holder: "SOPHIA WILLIAMS",
+    expiry: "02/28",
+    bgColor: "linear-gradient(15deg, #93291e, #f0717fff)", // Rich Red
+    sortCode: "40-12-34",
+    ifscode: "BOBN0001234",
+    accountName: "SOPHIA WILLIAMS",
+    accountNumber: "23456789012",
+    brandImage: "/mastercard.svg",
   },
   {
-    id: "3",
+    id: "103",
     brand: "amex",
-    number: "3782 822463 10005",
-    holder: "ALEX JOHNSON",
-    expiry: "03/28",
-    bgColor: "#36a18b",
+    number: "**** **** 5343 3331",
+    holder: "DANIEL ANDERSON",
+    expiry: "07/29",
+    bgColor: "linear-gradient(15deg, #1d976c, #93f9b9)", // Emerald Green
+    ifscode: "SBIN0001234",
+    accountName: "DANIEL ANDERSON",
+    accountNumber: "34567890123",
+    brandImage: "/visa.svg",
   },
   {
-    id: "4",
+    id: "104",
     brand: "visa",
-    number: "4012 8888 8888 1881",
-    holder: "EMILY BROWN",
-    expiry: "11/29",
-    bgColor: "#747474",
+    number: "**** **** 5566 5556",
+    holder: "OLIVIA THOMAS",
+    expiry: "11/26",
+    bgColor: "linear-gradient(15deg, #141e30, #243b55)", // Midnight Blue
+    ifscode: "HDFC0005678",
+    accountName: "OLIVIA THOMAS",
+    accountNumber: "45678901234",
+    brandImage: "/mastercard.svg",
   },
   {
-    id: "5",
+    id: "105",
     brand: "mastercard",
-    number: "5105 1051 0510 5100",
-    holder: "MICHAEL LEE",
-    expiry: "06/25",
-    bgColor: "#cda35f",
-  }
+    number: "**** **** 8282 8210",
+    holder: "ETHAN WALKER",
+    expiry: "05/30",
+    bgColor: "linear-gradient(15deg, #f46b45, #eea849)", // Warm Gold
+    sortCode: "20-45-67",
+    ifscode: "SBIN0001234",
+    accountName: "ETHAN WALKER",
+    accountNumber: "56789012345",
+    brandImage: "/visa.svg",
+  },
 ];
+
+

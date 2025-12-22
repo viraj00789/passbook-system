@@ -57,3 +57,7 @@ body {
 .custom-border-gray {
   @apply border border-gray-600 rounded-md;
 }
+
+.credit-text {
+  @apply text-gray-50 dark:text-white;
+}

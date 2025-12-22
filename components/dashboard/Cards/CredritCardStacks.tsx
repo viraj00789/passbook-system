@@ -2,6 +2,7 @@
 
 import { CARDS, CreditCard } from "@/Data/creditCardData";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useState } from "react";
 
 const CARD_OFFSET = 10;
@@ -23,7 +24,7 @@ const CardStack = () => {
     <>
       <div className="w-full lg:w-[35%] flex flex-col border border-gray-200 dark:border-gray-800 rounded-3xl bg-gray-50 dark:bg-gray-800 overflow-hidden">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white p-4 lg:p-5">
-          Wallet
+          Accounts
         </h2>
         {/* <div className="flex items-center justify-center"> */}
         <ul className="relative h-100 lg:h-50 w-[calc(100%-100px)] flex items-center justify-center m-auto">
@@ -35,7 +36,7 @@ const CardStack = () => {
                 key={card.id}
                 className="absolute h-65 w-[calc(100%-20px)] list-none rounded-2xl border border-white/20 backdrop-blur-xl shadow-2xl"
                 style={{
-                  backgroundColor: card.bgColor,
+                  background: card.bgColor,
                   cursor: canDrag ? "grab" : "auto",
                   transformOrigin: "top center",
                 }}
@@ -59,16 +60,33 @@ const CardStack = () => {
                 />
 
                 {/* Card content */}
-                <div className="relative flex h-full flex-col justify-between p-6 text-white">
-                  <span className="text-sm uppercase tracking-wider opacity-80">
-                    {card.brand}
-                  </span>
+                <div className="relative flex h-full flex-col justify-between p-6 credit-text">
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg tracking-widest font-bold">
+                      {card.holder}
+                    </span>
+                    <div className="text-sm uppercase tracking-wider opacity-80">
+                      <Image
+                        src={card.brandImage as string}
+                        alt={card.accountName as string}
+                        width={80}
+                        height={20}
+                        className="bg-transparent rounded-lg"
+                      />
+                    </div>
+                  </div>
 
-                  <span className="text-lg tracking-widest">{card.number}</span>
+                  <span className="text-2xl tracking-widest font-bold">{card.number}</span>
 
-                  <div className="flex justify-between text-sm opacity-80">
-                    <span>{card.holder}</span>
-                    <span>{card.expiry}</span>
+                  <div className="flex justify-between text-sm opacity-80 credit-text">
+                    <div className="flex flex-col">
+                      <p className="text-xl font-bold">IFSC Code</p>
+                      <p className="font-medium text-md opacity-60">{card.ifscode}</p>
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-xl font-bold">Account No.</p>
+                      <p className="font-medium text-md opacity-60">{card.accountNumber}</p>
+                    </div>
                   </div>
                 </div>
               </motion.li>

@@ -58,11 +58,10 @@ export default function Sidebar() {
         className={`
           fixed md:relative z-50 h-full bg-white dark:bg-dark-blue
           border-r border-gray-200 dark:border-gray-600
-          transition-all duration-300 flex flex-col justify-between
-          ${
-            open
-              ? "w-64 translate-x-0"
-              : "w-16 -translate-x-full md:translate-x-0"
+          transition-all duration-300 flex flex-col justify-between text
+          ${open
+            ? "w-64 translate-x-0"
+            : "w-16 -translate-x-full md:translate-x-0"
           }
         `}
       >
@@ -77,7 +76,7 @@ export default function Sidebar() {
                 className={`
                   flex items-center gap-3 p-3 rounded-md font-semibold
                   hover:bg-primary-300 hover:text-black transition
-                  ${isActive ? "bg-primary-500 text-black" : "text-white"}
+                  ${isActive && "bg-primary-500 text-black"}
                 `}
                 onClick={() => {
                   if (window.innerWidth < 768) setOpen(false);
@@ -102,7 +101,7 @@ export default function Sidebar() {
           )}
           {open && <span className="text">Collapse</span>}
         </button>
-      </aside>
+      </aside >
     </>
   );
 }
